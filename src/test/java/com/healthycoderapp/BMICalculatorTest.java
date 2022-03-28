@@ -5,6 +5,7 @@ import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.function.Executable;
 import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.CsvSource;
 import org.junit.jupiter.params.provider.ValueSource;
 
 import java.util.ArrayList;
@@ -15,14 +16,12 @@ import static org.junit.jupiter.api.Assertions.*;
 class BMICalculatorTest {
 
     @BeforeAll
-    static void beforeAll()
-    {
+    static void beforeAll() {
         System.out.println("before all");
     }
 
     @AfterAll
-    static void afterAll()
-    {
+    static void afterAll() {
         System.out.println("after all");
     }
 
@@ -39,11 +38,11 @@ class BMICalculatorTest {
         assertTrue(recommended);
     }
 
-    @ParameterizedTest
-    @ValueSource(doubles = {95.0,89.0,110.0})
-    void should_return_true_when_diet_recommended_parameterized(Double codeWeight) {
+    @ParameterizedTest(name = "weight={0},height={1}")
+    @CsvSource(value = {"89.0,1.72", "95.0,1.75", "110.0,1.78"})
+    void should_return_true_when_diet_recommended_parameterized(Double codeWeight, Double coderHeight) {
         // given
-        double height = 1.72;
+        double height = coderHeight;
         double weight = codeWeight;
 
         //when
@@ -69,7 +68,7 @@ class BMICalculatorTest {
     @Test
     void should_trow_arithmetic_exception_when_height_zero() {
         // given
-        double height = 2-0.0;
+        double height = 2 - 0.0;
         double weight = 1.0;
 
         //when
@@ -117,12 +116,12 @@ class BMICalculatorTest {
         coders.add(new Coder(1.82, 98.0));
         coders.add(new Coder(1.82, 64.8));
 
-        double[] expected = {18.52,29.59,19.53};
+        double[] expected = {18.52, 29.59, 19.53};
 
         //when
         double[] bmiScores = BMICalculator.getBMIScores(coders);
 
         //then
-        assertArrayEquals(expected,bmiScores);
+        assertArrayEquals(expected, bmiScores);
     }
 }
