@@ -2,6 +2,7 @@ package com.healthycoderapp;
 
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.function.Executable;
 import org.junit.jupiter.params.ParameterizedTest;
@@ -146,20 +147,25 @@ class BMICalculatorTest {
         assertNull(coderWorstBMI);
     }
 
-    @Test
-    void should_returnCorrectBMIScoreList_when_coder_inNot_empty() {
-        // given
-        List<Coder> coders = new ArrayList<>();
-        coders.add(new Coder(1.80, 60.0));
-        coders.add(new Coder(1.82, 98.0));
-        coders.add(new Coder(1.82, 64.8));
 
-        double[] expected = {18.52, 29.59, 19.53};
 
-        //when
-        double[] bmiScores = BMICalculator.getBMIScores(coders);
+    @Nested
+    class GetBMIScoresTest{
+        @Test
+        void should_returnCorrectBMIScoreList_when_coder_inNot_empty() {
+            // given
+            List<Coder> coders = new ArrayList<>();
+            coders.add(new Coder(1.80, 60.0));
+            coders.add(new Coder(1.82, 98.0));
+            coders.add(new Coder(1.82, 64.8));
 
-        //then
-        assertArrayEquals(expected, bmiScores);
+            double[] expected = {18.52, 29.59, 19.56};
+
+            //when
+            double[] bmiScores = BMICalculator.getBMIScores(coders);
+
+            //then
+            assertArrayEquals(expected, bmiScores);
+        }
     }
 }
