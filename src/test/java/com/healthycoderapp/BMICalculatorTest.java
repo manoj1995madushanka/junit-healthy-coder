@@ -1,5 +1,7 @@
 package com.healthycoderapp;
 
+import org.junit.jupiter.api.AfterAll;
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.function.Executable;
 
@@ -9,6 +11,18 @@ import java.util.List;
 import static org.junit.jupiter.api.Assertions.*;
 
 class BMICalculatorTest {
+
+    @BeforeAll
+    static void beforeAll()
+    {
+        System.out.println("before all");
+    }
+
+    @AfterAll
+    static void afterAll()
+    {
+        System.out.println("after all");
+    }
 
     @Test
     void should_return_true_when_diet_recommended() {
@@ -39,8 +53,8 @@ class BMICalculatorTest {
     @Test
     void should_trow_arithmetic_exception_when_height_zero() {
         // given
-        double height = 50.0;
-        double weight = 0.0;
+        double height = 2-0.0;
+        double weight = 1.0;
 
         //when
         Executable executable = () -> BMICalculator.isDietRecommended(weight, height);
