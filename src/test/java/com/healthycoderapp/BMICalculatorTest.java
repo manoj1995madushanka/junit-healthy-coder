@@ -1,9 +1,8 @@
 package com.healthycoderapp;
 
-import org.junit.jupiter.api.AfterAll;
-import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.Nested;
-import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.*;
+import org.junit.jupiter.api.condition.DisabledOnOs;
+import org.junit.jupiter.api.condition.OS;
 import org.junit.jupiter.api.function.Executable;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvFileSource;
@@ -92,6 +91,7 @@ class BMICalculatorTest {
     }
 
     @Test
+    @DisabledOnOs(OS.WINDOWS) // THIS WILL SKIP WHEN OS IS WINDOWS
     void should_return_false_when_diet_not_recommended() {
         // given
         double height = 50.0;
@@ -105,9 +105,10 @@ class BMICalculatorTest {
     }
 
     @Test
+    @Disabled // this will skip test
     void should_trow_arithmetic_exception_when_height_zero() {
         // given
-        double height = 2 - 0.0;
+        double height = 0.0;
         double weight = 1.0;
 
         //when
@@ -150,6 +151,7 @@ class BMICalculatorTest {
 
 
     @Nested
+    @DisplayName("sample display name")
     class GetBMIScoresTest{
         @Test
         void should_returnCorrectBMIScoreList_when_coder_inNot_empty() {
