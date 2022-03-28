@@ -4,6 +4,8 @@ import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.function.Executable;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.ValueSource;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -27,8 +29,22 @@ class BMICalculatorTest {
     @Test
     void should_return_true_when_diet_recommended() {
         // given
-        double height = 89.0;
-        double weight = 1.72;
+        double height = 1.72;
+        double weight = 89.0;
+
+        //when
+        boolean recommended = BMICalculator.isDietRecommended(weight, height);
+
+        //then
+        assertTrue(recommended);
+    }
+
+    @ParameterizedTest
+    @ValueSource(doubles = {95.0,89.0,110.0})
+    void should_return_true_when_diet_recommended_parameterized(Double codeWeight) {
+        // given
+        double height = 1.72;
+        double weight = codeWeight;
 
         //when
         boolean recommended = BMICalculator.isDietRecommended(weight, height);
