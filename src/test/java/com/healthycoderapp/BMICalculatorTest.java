@@ -14,6 +14,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assumptions.assumeTrue;
 
 class BMICalculatorTest {
 
@@ -26,6 +27,8 @@ class BMICalculatorTest {
     static void afterAll() {
         System.out.println("after all");
     }
+
+    private String environment = "dev";
 
     @Test
     void should_return_true_when_diet_recommended() {
@@ -42,6 +45,9 @@ class BMICalculatorTest {
 
     @Test
     void should_return_true_when_coder_listHave1000Elements() {
+
+        assumeTrue(this.environment.equals("prod"));
+
         // given
         List<Coder> coders = new ArrayList<>();
         for (int i=0;i<10000;i++)
