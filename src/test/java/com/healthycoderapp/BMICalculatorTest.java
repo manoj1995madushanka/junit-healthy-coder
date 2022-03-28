@@ -5,6 +5,7 @@ import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.function.Executable;
 import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.CsvFileSource;
 import org.junit.jupiter.params.provider.CsvSource;
 import org.junit.jupiter.params.provider.ValueSource;
 
@@ -41,6 +42,20 @@ class BMICalculatorTest {
     @ParameterizedTest(name = "weight={0},height={1}")
     @CsvSource(value = {"89.0,1.72", "95.0,1.75", "110.0,1.78"})
     void should_return_true_when_diet_recommended_parameterized(Double codeWeight, Double coderHeight) {
+        // given
+        double height = coderHeight;
+        double weight = codeWeight;
+
+        //when
+        boolean recommended = BMICalculator.isDietRecommended(weight, height);
+
+        //then
+        assertTrue(recommended);
+    }
+
+    @ParameterizedTest(name = "weight={0},height={1}")
+    @CsvFileSource(resources = "/diet-recommended-input-data.csv",numLinesToSkip = 1)
+    void should_return_true_when_diet_recommended_parameterized_file(Double codeWeight, Double coderHeight) {
         // given
         double height = coderHeight;
         double weight = codeWeight;
